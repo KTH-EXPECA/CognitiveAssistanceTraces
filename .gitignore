@@ -1,4 +1,4 @@
-*.pcap
+# *.pcap
 venv/
 .vscode/
 
