@@ -47,6 +47,7 @@ def read_video_stream(path: str) -> Dict[int, bytes]:
 
 
 if __name__ == '__main__':
-    results = read_video_stream('lego/client_stream_data.bin')
-    for k, v in results.items():
-        print(k)
+    results_c = read_video_stream('lego/client_videostream_data.bin')
+    results_s = read_video_stream('lego/server_videostream_data.bin')
+    for ((kc, vc), (ks, vs)) in zip(results_c.items(), results_s.items()):
+        print(kc, ks)
