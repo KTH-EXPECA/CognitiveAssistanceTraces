@@ -1,7 +1,9 @@
 #!/usr/bin/env python3
+import json
 import struct
 from typing import Dict
-import json
+
+from lego_timing import extract_timestamps
 
 
 def read_video_stream(path: str) -> Dict[int, bytes]:
@@ -49,5 +51,8 @@ def read_video_stream(path: str) -> Dict[int, bytes]:
 if __name__ == '__main__':
     results_c = read_video_stream('lego/client_videostream_data.bin')
     results_s = read_video_stream('lego/server_videostream_data.bin')
-    for ((kc, vc), (ks, vs)) in zip(results_c.items(), results_s.items()):
-        print(kc, ks)
+    results_t = extract_timestamps('lego/client.pcap')
+    for ((kc, vc), (ks, vs), (kt, vt)) in zip(results_c.items(),
+                                              results_s.items(),
+                                              results_t.items()):
+        print(kc, ks, kt)
