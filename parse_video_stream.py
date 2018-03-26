@@ -43,16 +43,38 @@ def read_video_stream(path: str) -> Dict[int, bytes]:
 
         (data,) = struct.unpack('>{}s'.format(d_len), data_net)
 
+        assert d_len == len(data)
         results[frame_id] = data
 
     return results
 
 
 if __name__ == '__main__':
-    results_c = read_video_stream('lego/client_videostream_data.bin')
-    results_s = read_video_stream('lego/server_videostream_data.bin')
-    results_t = extract_timestamps('lego/client.pcap')
-    for ((kc, vc), (ks, vs), (kt, vt)) in zip(results_c.items(),
-                                              results_s.items(),
-                                              results_t.items()):
-        print(kc, ks, kt)
+    data = read_video_stream('lego/client_videostream_data.bin')
+    timestamps = extract_timestamps('lego/client.pcap')
+
+    assert len(data) == len(timestamps)
+    trace = dict()
+    previous_time = 0
+
+    for i, frame in enumerate(sorted(data.keys())):
+        if i == 0:
+            delta_t = 0
+        else:
+            delta_t = timestamps[frame] - previous_time
+
+        previous_time = timestamps[frame]
+        trace[frame] = {
+            'delta_t'   : delta_t,
+            'frame_size': len(data[frame]),
+            'frame'     : data[frame]
+        }
+
+    with open('lego/client_out_video.trace', 'wb') as f:
+        for frame_id, frame_data in trace.items():
+            metadata = struct.pack('III',
+                                   frame_data['delta_t'],
+                                   frame_id,
+                                   frame_data['frame_size'])
+            f.write(metadata)
+            f.write(frame_data['frame'])
