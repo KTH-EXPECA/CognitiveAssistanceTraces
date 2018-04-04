@@ -72,7 +72,7 @@ if __name__ == '__main__':
 
     with open('lego/client_out_video.trace', 'wb') as f:
         for frame_id, frame_data in trace.items():
-            metadata = struct.pack('III',
+            metadata = struct.pack('>III',
                                    frame_data['delta_t'],
                                    frame_id,
                                    frame_data['frame_size'])
