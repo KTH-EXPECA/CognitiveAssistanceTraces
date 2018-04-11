@@ -5,6 +5,7 @@ import json
 import struct
 
 STEPDIR = './frames'
+KEY_FRAMES = [246, 159, 160, 275, 163, 240, 309]
 
 
 def get_steps() -> Tuple:
@@ -24,7 +25,8 @@ def process_step(step_dir: pathlib.Path) -> None:
     header = {
         'name': name,
         'index': index,
-        'num_frames': len(frames)
+        'num_frames': len(frames),
+        'key_frame': KEY_FRAMES[index - 1]
     }
 
     header_b = json.dumps(header, separators=(',', ':')).encode('utf-8')
