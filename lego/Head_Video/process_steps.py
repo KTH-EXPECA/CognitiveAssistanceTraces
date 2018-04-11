@@ -5,7 +5,7 @@ import json
 import struct
 
 STEPDIR = './frames'
-KEY_FRAMES = [246, 159, 160, 275, 163, 240, 309]
+KEY_FRAMES = [245, 158, 159, 274, 162, 239, 308]
 
 
 def get_steps() -> Tuple:
