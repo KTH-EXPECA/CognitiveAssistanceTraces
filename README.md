@@ -37,7 +37,7 @@ The traces are provided in a binary format (extension .trace) with the following
 The first element of the binary stream corresponds to a 4-byte integer detailing the byte length of the file header.
 The file header itself comes directly after this value, and corresponds to a JSON string with the following structure:
 
-```json
+```json5
 {
     "name": "Trace1",   // <Trace Name: str>,
     "index": 2,         // <Task step index: int>,
