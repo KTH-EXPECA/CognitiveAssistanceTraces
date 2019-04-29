@@ -39,10 +39,10 @@ The file header itself comes directly after this value, and corresponds to a JSO
 
 ```json
 {
-    'name': <Trace Name: str>,
-    'index': <Task step index: int>,
-    'num_frames': <Number of frames in trace: int>,
-    'key_frame': <Key frame: int>
+    "name": "Trace1",   // <Trace Name: str>,
+    "index": 2,         // <Task step index: int>,
+    "num_frames": 212,  // <Number of frames in trace: int>,
+    "key_frame": 170    // <Key frame: int>
 }
 ```
 
